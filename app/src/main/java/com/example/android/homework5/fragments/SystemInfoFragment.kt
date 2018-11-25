@@ -15,6 +15,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.android.homework5.R
 import android.widget.TextView
+import android.support.v4.content.ContextCompat.getSystemService
+
+
 
 
 
@@ -55,7 +58,7 @@ class SystemInfoFragment: Fragment() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
                 ConnectivityManager.CONNECTIVITY_ACTION -> {
-                    Toast.makeText(context, "wifi changed", Toast.LENGTH_LONG).show()
+                    updateNetwork()
                 }
                 Intent.ACTION_HEADSET_PLUG -> {
                     updateHeadset(intent)
@@ -78,6 +81,18 @@ class SystemInfoFragment: Fragment() {
         }
     }
 
+//   fun updateTime() {
+//       val txtView = view!!.findViewById(R.id.txt_network) as TextView
+//
+//   }
+
+    fun updateNetwork() {
+        val txtView = view!!.findViewById(R.id.txt_network) as TextView
+        val connectivityManager = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected) {
+            txtView.text = "Internet available"
+        } else txtView.text = "Internet disable"
+    }
 
     fun updateHeadset(intent: Intent) {
         val txtView = view!!.findViewById(R.id.txt_headset) as TextView
