@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
@@ -16,9 +17,8 @@ import android.widget.Toast
 import com.example.android.homework5.R
 import android.widget.TextView
 import android.support.v4.content.ContextCompat.getSystemService
-
-
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class SystemInfoFragment: Fragment() {
@@ -31,6 +31,7 @@ class SystemInfoFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateTime()
     }
 
     override fun onStart() {
@@ -72,19 +73,23 @@ class SystemInfoFragment: Fragment() {
                     txtView.text = "No connected AC adapter"
                 }
                 Intent.ACTION_TIME_CHANGED -> {
-                    Toast.makeText(context, "Time changed", Toast.LENGTH_LONG).show()
+                    updateTime()
                 }
                 Intent.ACTION_TIMEZONE_CHANGED -> {
-                    Toast.makeText(context, "Timezone changed", Toast.LENGTH_LONG).show()
+                    updateTime()
                 }
             }
         }
     }
 
-//   fun updateTime() {
-//       val txtView = view!!.findViewById(R.id.txt_network) as TextView
-//
-//   }
+   fun updateTime() {
+       val txtView = view!!.findViewById(R.id.txt_time) as TextView
+       val tz = TimeZone.getDefault()
+       val sdf = SimpleDateFormat("HH:mm:ss")
+       val timeText = "Current time:  ${sdf.format(Date())} Current timezone: ${tz.getDisplayName(false, TimeZone.SHORT)}"
+       txtView.text = timeText
+
+   }
 
     fun updateNetwork() {
         val txtView = view!!.findViewById(R.id.txt_network) as TextView
