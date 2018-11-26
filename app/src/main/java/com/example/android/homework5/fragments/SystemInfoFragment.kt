@@ -4,26 +4,21 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.net.ConnectivityManager
-import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.android.homework5.R
 import android.widget.TextView
-import android.support.v4.content.ContextCompat.getSystemService
+import com.example.android.homework5.R
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class SystemInfoFragment: Fragment() {
+class SystemInfoFragment : Fragment() {
 
-    val br : BroadcastReceiver by lazy(this::SystemInfoBroadcastReceiver)
+    val br: BroadcastReceiver by lazy(this::SystemInfoBroadcastReceiver)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_system_info, container, false)
@@ -54,7 +49,34 @@ class SystemInfoFragment: Fragment() {
         context?.unregisterReceiver(br)
     }
 
-    inner class SystemInfoBroadcastReceiver: BroadcastReceiver() {
+    fun updateTime() {
+        val txtView = view!!.findViewById(R.id.txt_time) as TextView
+        val tz = TimeZone.getDefault()
+        val sdf = SimpleDateFormat("HH:mm:ss")
+        val timeText = "Current time:  ${sdf.format(Date())} Current timezone: ${tz.getDisplayName(false, TimeZone.SHORT)}"
+        txtView.text = timeText
+
+    }
+
+    fun updateNetwork() {
+        val txtView = view!!.findViewById(R.id.txt_network) as TextView
+        val connectivityManager = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected) {
+            txtView.text = "Internet available"
+        } else txtView.text = "Internet disable"
+    }
+
+    fun updateHeadset(intent: Intent) {
+        val txtView = view!!.findViewById(R.id.txt_headset) as TextView
+        val state = intent.getIntExtra("state", -1)
+        when (state) {
+            0 -> txtView.text = "Headset is unplugged"
+            1 -> txtView.text = "Headset is plugged"
+            else -> txtView.text = "No data"
+        }
+    }
+
+    inner class SystemInfoBroadcastReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
@@ -79,33 +101,6 @@ class SystemInfoFragment: Fragment() {
                     updateTime()
                 }
             }
-        }
-    }
-
-   fun updateTime() {
-       val txtView = view!!.findViewById(R.id.txt_time) as TextView
-       val tz = TimeZone.getDefault()
-       val sdf = SimpleDateFormat("HH:mm:ss")
-       val timeText = "Current time:  ${sdf.format(Date())} Current timezone: ${tz.getDisplayName(false, TimeZone.SHORT)}"
-       txtView.text = timeText
-
-   }
-
-    fun updateNetwork() {
-        val txtView = view!!.findViewById(R.id.txt_network) as TextView
-        val connectivityManager = context!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        if (connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected) {
-            txtView.text = "Internet available"
-        } else txtView.text = "Internet disable"
-    }
-
-    fun updateHeadset(intent: Intent) {
-        val txtView = view!!.findViewById(R.id.txt_headset) as TextView
-        val state = intent.getIntExtra("state", -1)
-        when (state) {
-            0 -> txtView.text = "Headset is unplugged"
-            1 -> txtView.text = "Headset is plugged"
-            else -> txtView.text = "No data"
         }
     }
 

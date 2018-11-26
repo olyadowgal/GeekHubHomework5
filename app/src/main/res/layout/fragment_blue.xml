@@ -11,10 +11,12 @@
         android:layout_height="wrap_content" />
 
     <Switch
+        android:id="@+id/switch_blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
         android:layout_width="match_parent"
+        android:state_pressed="true"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
