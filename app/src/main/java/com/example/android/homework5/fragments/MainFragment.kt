@@ -11,10 +11,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment: Fragment(), View.OnClickListener {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
@@ -34,7 +30,14 @@ class MainFragment: Fragment(), View.OnClickListener {
                         .addToBackStack(null)
                         .commit()
                 }
-
+            }
+            R.id.btn_frag_com -> {
+                fragmentManager?.apply{
+                    beginTransaction()
+                            .replace(R.id.view_fragment_placeholder,CommunicationFragment())
+                            .addToBackStack(null)
+                            .commit()
+                }
             }
         }
     }
