@@ -1,21 +1,24 @@
 package com.example.android.homework5.fragments
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent.ACTION_DOWN
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CompoundButton
-import android.widget.RadioGroup
-import android.widget.Switch
 import com.example.android.homework5.R
-import android.content.Intent
+import kotlinx.android.synthetic.main.fragment_blue.*
 
 
-
-class BlueFragment: Fragment(), CompoundButton.OnCheckedChangeListener {
-
+class BlueFragment : Fragment(), CompoundButton.OnCheckedChangeListener, TextWatcher, View.OnTouchListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -25,15 +28,37 @@ class BlueFragment: Fragment(), CompoundButton.OnCheckedChangeListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val switch = view.findViewById(R.id.switch_blue) as Switch
-        switch.setOnCheckedChangeListener(this)
+        switch_blue.setOnCheckedChangeListener(this)
+        edit_blue.addTextChangedListener(this)
+        button_blue.setOnTouchListener(this)
+
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         val myIntent = Intent("MY_SUPER_ACTION")
-        myIntent.putExtra("EXTRA_SWITCH_STATUS",isChecked)
+        myIntent.putExtra("EXTRA_SWITCH_STATUS", isChecked)
         context?.sendBroadcast(myIntent)
     }
 
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        val i : Boolean = !event!!.equals(0)
+        val myIntent = Intent("MY_SUPER_ACTION")
+        myIntent.putExtra("EXTRA_TOUCH_BUTTON", i)
+        context?.sendBroadcast(myIntent)
+        return i
+    }
+
+
+    override fun afterTextChanged(s: Editable?) {
+        val myIntent = Intent("MY_SUPER_ACTION")
+        myIntent.putExtra("EXTRA_EDIT_TEXT", s.toString())
+        context?.sendBroadcast(myIntent)
+    }
+
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    }
 
 }

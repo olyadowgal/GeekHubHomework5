@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:background="@android:color/holo_blue_bright">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical"
+              android:background="@android:color/holo_blue_bright">
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            android:id="@+id/edit_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     <Switch
-        android:id="@+id/switch_blue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+            android:id="@+id/switch_blue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     <Button
-        android:layout_width="match_parent"
-        android:state_pressed="true"
-        android:layout_height="wrap_content" />
+            android:id="@+id/button_blue"
+            android:layout_width="match_parent"
+            android:state_pressed="true"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>

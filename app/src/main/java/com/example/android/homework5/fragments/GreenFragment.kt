@@ -11,10 +11,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import com.example.android.homework5.R
 
-class GreenFragment: Fragment() {
+class GreenFragment : Fragment() {
 
     val br: BroadcastReceiver by lazy(this::GreenBroadcastReceiver)
 
@@ -39,7 +38,7 @@ class GreenFragment: Fragment() {
         context?.unregisterReceiver(br)
     }
 
-    inner class GreenBroadcastReceiver: BroadcastReceiver() {
+    inner class GreenBroadcastReceiver : BroadcastReceiver() {
 
         private val txtEdit = view!!.findViewById(R.id.txt_edit_text) as TextView
         private val txtSwitch = view!!.findViewById(R.id.txt_switch_status) as TextView
@@ -47,12 +46,26 @@ class GreenFragment: Fragment() {
 
 
         override fun onReceive(context: Context?, intent: Intent?) {
-            when(intent?.action) {
+            when (intent?.action) {
                 ACTION -> {
-                    val boolSwitch = intent.getBooleanExtra("EXTRA_SWITCH_STATUS",false)
-                    if (boolSwitch)  txtSwitch.text = "Switch is on"
-                    else txtSwitch.text = "Switch is off"
+                    when {
+                        intent.hasExtra("EXTRA_SWITCH_STATUS") -> {
+                            val boolSwitch = intent.getBooleanExtra("EXTRA_SWITCH_STATUS", false)
+                            if (boolSwitch) txtSwitch.text = "Switch is on"
+                            else txtSwitch.text = "Switch is off"
+                        }
+
+                        intent.hasExtra("EXTRA_EDIT_TEXT") -> {
+                            val txtNewEdit = intent.getStringExtra("EXTRA_EDIT_TEXT")
+                            txtEdit.text = "Text in EditText is: $txtNewEdit"
+                        }
+                        intent.hasExtra("EXTRA_TOUCH_BUTTON") -> {
+                            val boolSwitch = intent.getBooleanExtra("EXTRA_TOUCH_BUTTON", false)
+                            if (boolSwitch) txtButton.text = "Button pressed"
+                            else txtButton.text = "Button out of focus"
+                        }
                     }
+                }
             }
         }
     }
