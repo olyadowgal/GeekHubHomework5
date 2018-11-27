@@ -3,4 +3,5 @@
     <string name="label_system_info">SYSTEM INFO</string>
     <string name="label_frag_com">FRAGMENTS COMMUNICATION
     </string>
+    <string name="label_data">No data yet</string>
 </resources>
