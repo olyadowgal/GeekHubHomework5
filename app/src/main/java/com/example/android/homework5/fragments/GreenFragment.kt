@@ -62,7 +62,7 @@ class GreenFragment : Fragment() {
                         intent.hasExtra("EXTRA_TOUCH_BUTTON") -> {
                             val boolSwitch = intent.getBooleanExtra("EXTRA_TOUCH_BUTTON", false)
                             if (boolSwitch) txtButton.text = "Button pressed"
-                            else txtButton.text = "Button out of focus"
+                            else txtButton.text = "Button released"
                         }
                     }
                 }

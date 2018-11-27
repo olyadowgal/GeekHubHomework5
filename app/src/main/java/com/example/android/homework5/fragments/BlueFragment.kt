@@ -40,12 +40,14 @@ class BlueFragment : Fragment(), CompoundButton.OnCheckedChangeListener, TextWat
         context?.sendBroadcast(myIntent)
     }
 
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        val i : Boolean = !event!!.equals(0)
+    override fun onTouch(v: View, event: MotionEvent): Boolean {
         val myIntent = Intent("MY_SUPER_ACTION")
-        myIntent.putExtra("EXTRA_TOUCH_BUTTON", i)
+        when(event.action) {
+            MotionEvent.ACTION_UP -> myIntent.putExtra("EXTRA_TOUCH_BUTTON", false)
+            MotionEvent.ACTION_DOWN -> myIntent.putExtra("EXTRA_TOUCH_BUTTON", true)
+        }
         context?.sendBroadcast(myIntent)
-        return i
+        return false
     }
 
 
