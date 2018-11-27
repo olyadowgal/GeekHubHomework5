@@ -1,4 +1,4 @@
 # GeekHubHomework5
-https://drive.google.com/open?id=19vcS8TQ9hXZZm6TWl_T4_ElUnqZfx3WM
+https://drive.google.com/open?id=1cgiypyU8Pk21bQdJ5NDnZL9gWhTAJYeJ
 
-![qrcode 1](https://user-images.githubusercontent.com/23187990/49062747-d8331580-f21d-11e8-9d75-803b988b197e.png)
+![qrnew](https://user-images.githubusercontent.com/23187990/49096632-9e8cf980-f273-11e8-8310-1d8fa17c4565.png)
