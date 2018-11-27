@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.android.homework5.MainActivity
 import com.example.android.homework5.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,6 +22,9 @@ class SystemInfoFragment : Fragment() {
     val br: BroadcastReceiver by lazy(this::SystemInfoBroadcastReceiver)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        (activity as MainActivity)
+            .setActionBarTitle("Information about this system")
+        (activity as MainActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         return inflater.inflate(R.layout.fragment_system_info, container, false)
     }
 
@@ -53,7 +57,8 @@ class SystemInfoFragment : Fragment() {
         val txtView = view!!.findViewById(R.id.txt_time) as TextView
         val tz = TimeZone.getDefault()
         val sdf = SimpleDateFormat("HH:mm:ss")
-        val timeText = "Current time:  ${sdf.format(Date())} Current timezone: ${tz.getDisplayName(false, TimeZone.SHORT)}"
+        val timeText =
+            "Current time:  ${sdf.format(Date())} Current timezone: ${tz.getDisplayName(false, TimeZone.SHORT)}"
         txtView.text = timeText
 
     }
